@@ -32,8 +32,15 @@ def update_post_resolver(obj, info, id, title, description):
         if post:
             post.title = title
             post.description = description
+        db.session.add(post)
+        db.session.commit()
+        payload = {
+            "success": True,
+            "post": post.to_dict()
+        }
     except AttributeError:
         payload = {
             "success": False,
             "errors": ["item matching id {id} not found"]
         }
+    return payload
