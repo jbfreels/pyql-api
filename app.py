@@ -4,7 +4,7 @@ from ariadne import load_schema_from_path, make_executable_schema, \
 from ariadne.explorer import ExplorerPlayground
 from flask import request, jsonify
 from api.queries import listPosts_resolver, getPost_resolver
-from api.mutations import createPost_resolver, update_post_resolver
+from api.mutations import createPost_resolver, update_post_resolver, delete_post_resolver
 
 query = ObjectType("Query")
 mutation = ObjectType("Mutation")
@@ -12,6 +12,7 @@ query.set_field("listPosts", listPosts_resolver)
 query.set_field("getPost", getPost_resolver)
 mutation.set_field("createPost", createPost_resolver)
 mutation.set_field("updatePost", update_post_resolver)
+mutation.set_field("deletePost", delete_post_resolver)
 
 type_defs = load_schema_from_path("schema.graphql")
 schema = make_executable_schema(
